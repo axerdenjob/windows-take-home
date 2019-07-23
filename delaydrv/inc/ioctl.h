@@ -1,0 +1,9 @@
+#pragma once
+
+#define DELAY_DEVICE_NAME     L"\\Device\\delaydrv"
+#define DELAY_SYMBOLIC_NAME   L"\\DosDevices\\Global\\delaydrv"
+#define DELAY_DOS_NAME   L"\\\\.\\delaydrv"
+
+#define	IOCTL_ENABLE_DELAY  CTL_CODE(FILE_DEVICE_NETWORK, 0x1, METHOD_BUFFERED, FILE_ANY_ACCESS)
+#define	IOCTL_DISABLE_DELAY CTL_CODE(FILE_DEVICE_NETWORK, 0x2, METHOD_BUFFERED, FILE_ANY_ACCESS)
+

@@ -1,0 +1,48 @@
+
+[Version]
+    Signature   = "$Windows NT$"
+    Class       = WFPCALLOUTS
+    ClassGuid   = {57465043-616C-6C6F-7574-5F636C617373}
+    Provider    = %ProviderString%
+    CatalogFile = delaydrv.cat
+    DriverVer   = 07/18/2019,1.0.0.0
+
+[SourceDisksNames]
+   1 = %delaydrvDisk%,,,""
+
+[SourceDisksFiles]
+   delaydrv.sys = 1,,
+
+[DestinationDirs]
+    DefaultDestDir      = 12                              ; %WinDir%\System32\Drivers
+    delaydrv.DriverFiles = 12                              ; %WinDir%\System32\Drivers
+
+[DefaultInstall]
+    OptionDesc = %delaydrvServiceDesc%
+    CopyFiles  = delaydrv.DriverFiles
+
+[DefaultInstall.Services]
+    AddService = %delaydrvServiceName%,,delaydrv.Service
+
+[DefaultUninstall]
+    DelFiles = delaydrv.DriverFiles
+
+[DefaultUninstall.Services]
+    DelService = %delaydrvServiceName%,0x200               ; SPSVCINST_STOPSERVICE
+
+[delaydrv.DriverFiles]
+    delaydrv.sys,,,0x00000040                              ; COPYFLG_OVERWRITE_OLDER_ONLY
+
+[delaydrv.Service]
+    DisplayName   = %delaydrvServiceName%
+    Description   = %delaydrvServiceDesc%
+    ServiceType   = 1                                     ; SERVICE_KERNEL_DRIVER
+    StartType     = 3                                     ; SERVICE_DEMAND_START
+    ErrorControl  = 1                                     ; SERVICE_ERROR_NORMAL
+    ServiceBinary = %12%\delaydrv.sys                      ; %WinDir%\System32\Drivers\delaydrv.sys
+
+[Strings]
+    ProviderString     = "prvstr"
+    delaydrvDisk        = "delaydrv Installation Disk"
+    delaydrvServiceDesc = "delaydrv Callout Driver"
+    delaydrvServiceName = "delaydrv"
